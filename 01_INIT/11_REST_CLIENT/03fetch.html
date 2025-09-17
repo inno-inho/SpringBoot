@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+
+        // 사용법
+        // fetch("URL", {header정보})
+        // .then((resp) => {})     // 성공시
+        // .error((error) => {})    // 실패시
+        
+
+
+        // GET
+        function requestFunc() {
+            fetch("http://192.168.5.4:8099/api/items/3").then(r => r.json()).then(console.log);    
+            fetch("http://192.168.5.4:8099/api/items/4").then(r => r.json()).then(console.log);
+            fetch("http://192.168.5.4:8099/api/items/5").then(r => r.json()).then(console.log);
+        }
+        
+
+          // GET
+        // 동시요청 처리 : async + await
+        // async function requestFunc{     // 동기처리인 fetch를 비동기 요청(async와 await 붙이기)
+        //     await fetch("http://192.168.5.4:8099/api/items/3").then(r => r.json()).then(console.log);    
+        //     await fetch("http://192.168.5.4:8099/api/items/4").then(r => r.json()).then(console.log);
+        //     await fetch("http://192.168.5.4:8099/api/items/5").then(r => r.json()).then(console.log);
+        // }
+        // requestFunc()
+
+
+        // const rFunc2 = async () => {
+        //     await fetch("http://192.168.5.4:8099/api/items/3").then(r => r.json()).then(console.log);    
+        //     await fetch("http://192.168.5.4:8099/api/items/4").then(r => r.json()).then(console.log);
+        //     await fetch("http://192.168.5.4:8099/api/items/5").then(r => r.json()).then(console.log);
+        // }
+
+        // // POST
+        // fetch("http://localhost:8099/api/items", {
+        //     method: "POST",
+        //     headers: { "Content-Type": "application/json" },
+        //     body: JSON.stringify({ name: "eraser", price: 300 })
+        // }).then(r => r.json()).then(console.log);
+
+        // // PUT
+        // fetch("http://localhost:8099/api/items/1", {
+        //     method: "PUT",
+        //     headers: { "Content-Type": "application/json" },
+        //     body: JSON.stringify({ name: "eraser-v2", price: 350 })
+        // }).then(r => r.json()).then(console.log);
+
+        // // PATCH
+        // fetch("http://localhost:8099/api/items/1", {
+        //     method: "PATCH",
+        //     headers: { "Content-Type": "application/json" },
+        //     body: JSON.stringify({ price: 360 })
+        // }).then(r => r.json()).then(console.log);
+
+        // // DELETE
+        // fetch("http://localhost:8099/api/items/1", { method: "DELETE" })
+        //     .then(() => console.log("deleted"));
+    </script>
+
+</body>
+
+</html>

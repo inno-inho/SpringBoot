@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+
+
+    <script>
+        // 객체생성해야함
+        const xhr = new XMLHttpRequest;
+        console.log(xhr)
+        
+        xhr.open("POST", "http://localhost:8095/api/items")  // 요청할 백엔드 사용자포트
+        xhr.setRequestHeader("Content-Type", "application/json")
+        
+        xhr.onload = () => {console.log("정상응답: ", xhr.responseText)}   // 정상응답
+        xhr.onerror = () => {console.log("요청실패")}   // 비정상응답
+        xhr.send(JSON.stringify({name: "pen", price: 500}))
+
+
+        function get_item(id){}
+        function post_item(item){}
+        function put_item(item){}
+        function petch_item(item){}
+        function delete_item(id){}
+
+
+    </script>
+</body>
+</html>

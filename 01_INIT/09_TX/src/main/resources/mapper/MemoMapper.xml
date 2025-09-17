@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 연결경로 java파일에서 스타트이기 때문에 바로 com -->
+<mapper namespace = "com.example.demo.Domain.Common.Mapper.MemoMapper">
+
+<!--    MemoMapper에 있는 insertXML 쿼리문을 여기서 완성시킴-->
+    <insert id="insertXML">
+        insert into tbl_memo values(#{id}, #{text}, #{writer}, #{createAt})
+    </insert>
+
+    <update id="updateXML">
+        <!--바꿀 컬럼명=값, 바꿀컬럼명=값, 기본키열=?-->
+        update tbl_memo set text=#{text}, writer=#{writer} where id=#{id}
+    </update>
+
+    <delete id="deleteXML">
+        delete from tbl_memo where id=#{id}
+    </delete>
+
+<!--    셀렉트는 resultType(반환자료형의 위치경로 잡아야함)과 parameterType을 적어주어야 한다-->
+    <select id="selectXML" resultType="com.example.demo.Domain.Common.Dto.MemoDto" parameterType="Long" >
+        select * from tbl_memo where id=#{id}
+    </select>
+
+<!--    반환자료형? 나는 반환자료형 없이했어도 됬는데 선생님은 넣음  -->
+<!--    -> 반환자료형을 List로 해놨지만 MemoDto자료형을 알아서 List형으로 바꿔줌-->
+    <select id="selectAllXML" resultType="com.example.demo.Domain.Common.Dto.MemoDto">
+        select * from tbl_memo
+    </select>
+
+    <!-- MemoDto형으로 반환하는게 아닌 Map형으로 반환하기 때문에 반환자료형에 Map의 의존코드-->
+    <select id="selectAllMapXML" resultType="java.util.Map">
+        select * from tbl_memo
+    </select>
+
+    <select id="selectAllIfXML" resultType="java.util.Map" parameterType="java.util.Map">
+        select * from tbl_memo
+        <!-- 조건식을 만족하면 if문 실행-->
+        <if test="type!=null and type.equals('text')">
+            where text like concat('%', #{keyword}, '%')
+        </if>
+    </select>
+
+    <!-- 다중분기문 -->
+    <select id="selectAllChooseXML" resultType="java.util.Map" parameterType="java.util.Map">
+        select * from tbl_memo
+        <where>
+            <if test="field != null">
+                <choose>
+<!--                    type이 id라면-->
+                    <when test="type == 'id'">
+                        id like concat('%', #{keyword}, '%')
+                    </when>
+                    <when test="type == 'text'">
+                        test like concat('%', #{keyword}, '%')
+                    </when>
+                    <when test="type == 'writer'">
+                        writer like concat('%', #{keyword}, '%')
+                    </when>
+                    <!-- else랑 같은 역할 -->
+                    <otherwise>
+                        createAt like concat('%', #{keyword}, '%')
+                    </otherwise>
+                </choose>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectAllIfAndXML" resultType="java.util.Map" parameterType="java.util.Map">
+        select * from tbl_memo
+        <where>
+            <if test="field != null">
+                <if test="type.contains('id')">
+                    id like concat('%',#{keyword},'%')
+                </if>
+                <if test="type.contains('text')">
+                    <if test="type.contains('id')">AND</if>
+                    text like concat('%',#{keyword},'%')
+                </if>
+                <if test="type.contains('writer')">
+                    <if test="(type.contains('id')) or (type.contains('text'))">AND</if>
+                    writer like concat('%',#{keyword},'%')
+                </if>
+            </if>
+        </where>
+    </select>
+
+
+    <select id="selectForEachAnd" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT * FROM tbl_memo
+        <where>
+            <if test="fields != null and keyword != null">
+                <foreach collection="fields" item="f" separator="AND">
+                    <choose>
+                        <when test="f == 'id'">
+                            id LIKE CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="f == 'text'">
+                            text LIKE CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="f == 'writer'">
+                            writer LIKE CONCAT('%', #{keyword}, '%')
+                        </when>
+                    </choose>
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+
+</mapper>
