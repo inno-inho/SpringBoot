@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>날씨 정보</h1>
+    <th:block th:each="item:${list}">
+        <p>
+
+<!--            대문자로 바꿔야함  item.LOCATION  -->
+            <span th:text="${item.baseDate}"></span>    &nbsp|
+            <span th:text="${item.baseTime}"></span>       &nbsp|
+            <span th:text="${item.category}"></span>     &nbsp|
+            <span th:text="${item.nx}"></span>    &nbsp|
+            <span th:text="${item.ny}"></span>       &nbsp|
+            <span th:text="${item.obsrValue}"></span>     &nbsp|
+        </p>
+
+    </th:block>
+</body>
+</html>

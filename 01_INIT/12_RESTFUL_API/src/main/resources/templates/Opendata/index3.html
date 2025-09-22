@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>버스 정보</h1>
+    <th:block th:each="item:${list}">
+        <p>
+
+<!--            대문자로 바꿔야함  item.LOCATION  -->
+            <span th:text="${item.routeNo}"></span>    &nbsp|
+            <span th:each="arr : ${item.arrList}" th:text="${arr.moveDir}"></span>       &nbsp|
+            <span th:each="arr : ${item.arrList}" th:text="${arr.bsGap}"></span>     &nbsp|
+            <span th:each="arr : ${item.arrList}" th:text="${arr.bsNm}"></span>    &nbsp|
+            <span th:each="arr : ${item.arrList}" th:text="${arr.vhcNo2}"></span>       &nbsp|
+            <span th:each="arr : ${item.arrList}" th:text="${arr.busTCd2}"></span>     &nbsp|
+        </p>
+
+    </th:block>
+</body>
+</html>
